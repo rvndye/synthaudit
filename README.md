@@ -6,7 +6,7 @@
   <a href="https://github.com/rvndye/synthaudit/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/rvndye/synthaudit/actions/workflows/ci.yml/badge.svg"></a>
   <a href="https://github.com/rvndye/synthaudit/actions/workflows/docs.yml"><img alt="Docs" src="https://github.com/rvndye/synthaudit/actions/workflows/docs.yml/badge.svg"></a>
   <a href="LICENSE"><img alt="License: Apache-2.0" src="https://img.shields.io/badge/license-Apache--2.0-blue.svg"></a>
-  <img alt="Python 3.10 | 3.11 | 3.12" src="https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12-blue">
+  <img alt="Python 3.11 | 3.12" src="https://img.shields.io/badge/python-3.11%20%7C%203.12-blue">
   <a href="https://github.com/astral-sh/ruff"><img alt="Linted with Ruff" src="https://img.shields.io/badge/lint-ruff-261230.svg"></a>
   <a href="https://github.com/rvndye/synthaudit/releases"><img alt="Release" src="https://img.shields.io/github/v/release/rvndye/synthaudit?include_prereleases&sort=semver"></a>
   <!-- TODO after Zenodo archiving: <a href="https://doi.org/10.5281/zenodo.XXXXXXX"><img alt="DOI" src="https://zenodo.org/badge/DOI/10.5281/zenodo.XXXXXXX.svg"></a> -->

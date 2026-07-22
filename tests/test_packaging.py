@@ -1,7 +1,6 @@
 """Packaging hygiene tests."""
 
 import pathlib
-
 import tomllib
 
 import synthaudit

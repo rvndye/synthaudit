@@ -1,6 +1,6 @@
 # Installation
 
-SynthAudit supports Python 3.10 through 3.12 on Linux, macOS, and Windows.
+SynthAudit requires Python 3.11 or newer and is tested on 3.11 and 3.12 across Linux, macOS, and Windows.
 
 ## From PyPI
 
