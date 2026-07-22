@@ -1,0 +1,36 @@
+name: Audit finding
+description: Report a generator artifact you found in a public dataset using SynthAudit
+labels: ["audit finding"]
+body:
+  - type: input
+    id: dataset
+    attributes:
+      label: Dataset (name, version, and public link)
+    validations:
+      required: true
+  - type: textarea
+    id: finding
+    attributes:
+      label: The finding
+      description: The recovered relation, rule, or leakage mechanism, ideally pasted from the audit report or JSON.
+    validations:
+      required: true
+  - type: textarea
+    id: verify
+    attributes:
+      label: Independent verification
+      description: A few lines of pandas or numpy that confirm the relation directly against the file (like checking max absolute residual of an identity).
+      render: python
+    validations:
+      required: true
+  - type: input
+    id: grade
+    attributes:
+      label: BTI and grade for the standard task
+  - type: checkboxes
+    id: conduct
+    attributes:
+      label: Tone
+      options:
+        - label: My report names the dataset and the mechanism, not the authors' intent or competence.
+          required: true

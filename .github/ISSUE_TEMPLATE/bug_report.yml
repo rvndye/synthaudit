@@ -1,0 +1,37 @@
+name: Bug report
+description: Something in SynthAudit is broken or wrong
+labels: ["type: bug"]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: What you did, what you expected, what you got instead.
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Minimal reproduction
+      description: Smallest code + data shape that triggers it. If the data is private, `synthaudit.make_planted` plus a description of the offending column often reproduces screen issues.
+      render: python
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: SynthAudit version (`synthaudit version`)
+    validations:
+      required: true
+  - type: input
+    id: env
+    attributes:
+      label: Python / OS / pandas / scikit-learn versions
+    validations:
+      required: true
+  - type: checkboxes
+    id: selftest
+    attributes:
+      label: Self-test
+      options:
+        - label: "`synthaudit selftest` passes on my installation"

@@ -1,0 +1,95 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "synthaudit"
+version = "0.1.0"
+description = "Reference-free auditing of synthetic datasets for generator artifacts before machine learning"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "Apache-2.0" }
+authors = [{ name = "Randy Erwin", email = "erwinrandy3@gmail.com" }]
+keywords = [
+    "synthetic data", "data auditing", "data leakage", "benchmarks",
+    "benchmark validity", "causal discovery", "data-centric AI",
+    "data quality",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Software Development :: Quality Assurance",
+]
+dependencies = [
+    "numpy>=1.24",
+    "pandas>=2.0",
+    "scikit-learn>=1.3",
+    "scipy>=1.10",
+    "matplotlib>=3.7",
+]
+
+[project.optional-dependencies]
+causal = ["causal-learn>=0.1.3"]
+notebook = ["nbformat>=5.9"]
+docs = ["mkdocs-material>=9.5"]
+dev = [
+    "causal-learn>=0.1.3",
+    "nbformat>=5.9",
+    "pytest>=7.0",
+    "pytest-cov>=4.0",
+    "ruff>=0.4",
+    "build>=1.0",
+    "twine>=5.0",
+    "mkdocs-material>=9.5",
+    "nbclient>=0.9",
+    "nbconvert>=7.0",
+    "ipykernel>=6.25",
+]
+
+[project.scripts]
+synthaudit = "synthaudit.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/rvndye/synthaudit"
+Documentation = "https://rvndye.github.io/synthaudit/"
+Repository = "https://github.com/rvndye/synthaudit"
+Issues = "https://github.com/rvndye/synthaudit/issues"
+Changelog = "https://github.com/rvndye/synthaudit/blob/main/CHANGELOG.md"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
+markers = [
+    "integration: slower end-to-end tests (deselect with '-m \"not integration\"')",
+]
+
+[tool.coverage.run]
+source = ["synthaudit"]
+
+[tool.coverage.report]
+exclude_lines = ["pragma: no cover", "if __name__ == .__main__.:"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP", "B"]
+ignore = ["E741"]
+
+[tool.ruff.lint.per-file-ignores]
+"notebooks/*" = ["E501"]
+"src/synthaudit/report.py" = ["E501"]   # inline HTML template strings
+"tests/*" = ["E402"]                     # warnings filter precedes imports
+"scripts/*" = ["E402"]                   # sys.path bootstrap precedes imports

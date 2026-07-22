@@ -1,0 +1,71 @@
+<!DOCTYPE html><html><head><meta charset='utf-8'>
+<title>SynthAudit — synthea_patients</title><style>
+body{font-family:'Segoe UI',system-ui,sans-serif;margin:0;background:#f5f6fa;color:#2c3e50}
+.wrap{max-width:1080px;margin:0 auto;padding:24px}
+header{background:#1a252f;color:#ecf0f1;padding:28px 24px;border-radius:0 0 12px 12px}
+h1{margin:0;font-size:26px} h2{margin-top:34px;border-bottom:2px solid #dfe4ea;padding-bottom:6px}
+.sub{color:#95a5a6;margin-top:6px}
+.cards{display:flex;gap:16px;flex-wrap:wrap;margin-top:20px}
+.card{background:#fff;border-radius:10px;padding:16px 20px;box-shadow:0 1px 4px rgba(0,0,0,.08);min-width:130px}
+.card .v{font-size:24px;font-weight:700} .card .k{color:#7f8c8d;font-size:12px;text-transform:uppercase}
+.gradecard{background:#27ae60;color:#fff}
+table{border-collapse:collapse;width:100%;background:#fff;font-size:13px;margin-top:8px}
+th{background:#34495e;color:#fff;text-align:left;padding:7px 9px}
+td{padding:6px 9px;border-bottom:1px solid #ecf0f1;max-width:520px;overflow-wrap:anywhere}
+tr:hover td{background:#f8f9fb}
+.finding{background:#fff;border-left:5px solid;#ccc;margin:8px 0;padding:10px 14px;border-radius:6px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.sev{color:#fff;font-size:10px;padding:2px 7px;border-radius:9px;margin-right:6px}
+.pill{display:flex;align-items:center;gap:10px;margin:7px 0}
+.plabel{width:210px;font-size:13px} .pval{font-weight:700;width:44px}
+.bar{flex:1;height:12px;background:#dfe4ea;border-radius:6px;overflow:hidden}
+.fill{height:100%;background:linear-gradient(90deg,#e74c3c,#f1c40f 55%,#27ae60);border-radius:6px}
+.muted{color:#95a5a6} pre{background:#fff;padding:12px;border-radius:8px;overflow-x:auto;font-size:12px}
+.rec{background:#fff;border-radius:8px;padding:12px 16px;margin:8px 0;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+footer{color:#95a5a6;font-size:12px;margin:40px 0 12px;text-align:center}
+</style></head><body>
+<header><div class='wrap'>
+<h1>SynthAudit report — synthea_patients</h1>
+<div class='sub'>1,171 rows × 25 columns
+ · target: <b>HEALTHCARE_EXPENSES</b> · runtime 4.84s
+ · synthaudit v0.1.0</div>
+</div></header><div class='wrap'>
+
+<div class='cards'>
+<div class='card gradecard'><div class='v'>A</div><div class='k' style='color:#ffffffcc'>BTI grade</div></div>
+<div class='card'><div class='v'>0.8926</div><div class='k'>BTI score</div></div>
+<div class='card'><div class='v'>2</div><div class='k'>exact identities</div></div>
+<div class='card'><div class='v'>0</div><div class='k'>(near-)det. columns</div></div>
+<div class='card'><div class='v'>0</div><div class='k'>critical findings</div></div>
+</div>
+
+<h2>Benchmark Trustworthiness Index</h2><div class='pill'><span class='plabel'>Label integrity (L)</span><div class='bar'><div class='fill' style='width:100%'></div></div><span class='pval'>1.00</span></div><div class='pill'><span class='plabel'>Feature integrity (F)</span><div class='bar'><div class='fill' style='width:88%'></div></div><span class='pval'>0.88</span></div><div class='pill'><span class='plabel'>Difficulty headroom (H)</span><div class='bar'><div class='fill' style='width:100%'></div></div><span class='pval'>1.00</span></div><div class='pill'><span class='plabel'>Sampling realism (R)</span><div class='bar'><div class='fill' style='width:100%'></div></div><span class='pval'>1.00</span></div><div class='pill'><span class='plabel'>Information density (I)</span><div class='bar'><div class='fill' style='width:100%'></div></div><span class='pval'>1.00</span></div><div class='pill'><span class='plabel'>Transparency (T)</span><div class='bar'><div class='fill' style='width:50%'></div></div><span class='pval'>0.50</span></div>
+<p class='muted'>BTI is a triage score: report the pillar vector, not just the scalar. Grade A/B: usable with the recommended feature view. C: quarantine flagged columns and re-benchmark. D/F: dataset measures generator recovery, not learning — unsuitable as an ML benchmark without redesign.</p>
+
+<h2>Leakage &amp; artifact findings</h2><div class='finding' style='border-left-color:#95a5a6'><span class='sev' style='background:#95a5a6'>LOW</span> <b>constant_column</b><br>STATE is constant — carries no information.</div>
+
+<h2>Recovered identities &amp; rules (Module 2)</h2>
+<table><thead><tr><th>type</th><th>equation</th><th>r2/fidelity</th><th>disposition</th><th>exact</th></tr></thead><tbody><tr><td>rule_derived_label</td><td>PREFIX = decision_rules(GENDER, MARITAL)</td><td>1.0</td><td>structural_constraint</td><td>True</td></tr><tr><td>rule_derived_label</td><td>SUFFIX = decision_rules(ZIP, LON, LAT)</td><td>1.0</td><td>structural_constraint</td><td>True</td></tr></tbody></table>
+<h3>Functional dependencies</h3>
+<p class='muted'>none</p>
+
+<h2>Determinism sweep (Module 3, out-of-sample)</h2>
+<table><thead><tr><th>column</th><th>metric</th><th>score</th><th>class</th><th>best_single_feature</th></tr></thead><tbody><tr><td>ZIP</td><td>r2</td><td>0.953244</td><td>highly_predictable</td><td>COUNTY</td></tr><tr><td>LON</td><td>r2</td><td>0.934259</td><td>highly_predictable</td><td>COUNTY</td></tr><tr><td>COUNTY</td><td>accuracy</td><td>0.914729</td><td>stochastic</td><td>LON</td></tr><tr><td>LAT</td><td>r2</td><td>0.837983</td><td>stochastic</td><td>COUNTY</td></tr><tr><td>HEALTHCARE_EXPENSES</td><td>r2</td><td>0.462172</td><td>stochastic</td><td>HEALTHCARE_COVERAGE</td></tr><tr><td>GENDER</td><td>accuracy</td><td>0.669251</td><td>stochastic</td><td>HEALTHCARE_COVERAGE</td></tr><tr><td>HEALTHCARE_COVERAGE</td><td>r2</td><td>0.092381</td><td>stochastic</td><td>HEALTHCARE_EXPENSES</td></tr><tr><td>RACE</td><td>accuracy</td><td>0.816537</td><td>stochastic</td><td>ZIP</td></tr><tr><td>ETHNICITY</td><td>accuracy</td><td>0.883721</td><td>stochastic</td><td>COUNTY</td></tr></tbody></table>
+
+<h2>Causal structure scan (Module 4, advisory)</h2>
+<p>Excluded deterministic columns: —</p>
+<p>Varsortability (vs recovered graph): <b>—</b> ·
+R²-sortability: <b>—</b></p>
+<table><thead><tr><th>from</th><th>to</th><th>kind</th></tr></thead><tbody><tr><td>ZIP</td><td>LAT</td><td>undirected</td></tr><tr><td>ZIP</td><td>LON</td><td>undirected</td></tr><tr><td>LAT</td><td>LON</td><td>undirected</td></tr><tr><td>HEALTHCARE_EXPENSES</td><td>HEALTHCARE_COVERAGE</td><td>undirected</td></tr></tbody></table>
+<p class='muted'></p>
+
+<h2>Variable taxonomy</h2>
+<table><thead><tr><th>column</th><th>role</th><th>why</th></tr></thead><tbody><tr><td>Id</td><td>identifier</td><td></td></tr><tr><td>BIRTHDATE</td><td>identifier</td><td></td></tr><tr><td>DEATHDATE</td><td>identifier</td><td></td></tr><tr><td>SSN</td><td>identifier</td><td></td></tr><tr><td>DRIVERS</td><td>identifier</td><td></td></tr><tr><td>PASSPORT</td><td>identifier</td><td></td></tr><tr><td>PREFIX</td><td>derived_deterministic</td><td>PREFIX = decision_rules(GENDER, MARITAL)</td></tr><tr><td>FIRST</td><td>identifier</td><td></td></tr><tr><td>LAST</td><td>identifier</td><td></td></tr><tr><td>SUFFIX</td><td>derived_deterministic</td><td>SUFFIX = decision_rules(ZIP, LON, LAT)</td></tr><tr><td>MAIDEN</td><td>identifier</td><td></td></tr><tr><td>MARITAL</td><td>input</td><td></td></tr><tr><td>RACE</td><td>input</td><td></td></tr><tr><td>ETHNICITY</td><td>input</td><td></td></tr><tr><td>GENDER</td><td>input</td><td></td></tr><tr><td>BIRTHPLACE</td><td>identifier</td><td></td></tr><tr><td>ADDRESS</td><td>identifier</td><td></td></tr><tr><td>CITY</td><td>identifier</td><td></td></tr><tr><td>STATE</td><td>constant</td><td></td></tr><tr><td>COUNTY</td><td>input</td><td></td></tr><tr><td>ZIP</td><td>input</td><td></td></tr><tr><td>LAT</td><td>input</td><td></td></tr><tr><td>LON</td><td>input</td><td></td></tr><tr><td>HEALTHCARE_EXPENSES</td><td>target</td><td></td></tr><tr><td>HEALTHCARE_COVERAGE</td><td>input</td><td></td></tr></tbody></table>
+
+<h2>Recommendations (Module 7)</h2>
+<div class='rec'><b>Drop:</b> PREFIX, STATE, SUFFIX</div>
+<div class='rec'><b>Quarantine:</b> none</div>
+<div class='rec'><b>Suggested tasks:</b><br>Predict &#x27;HEALTHCARE_EXPENSES&#x27; from the recommended feature view (9 input columns).<br>Predict &#x27;ZIP&#x27; (honest out-of-sample r2≈0.95).<br>Predict &#x27;LON&#x27; (honest out-of-sample r2≈0.93).<br>Predict &#x27;COUNTY&#x27; (honest out-of-sample accuracy≈0.89).</div>
+<div class='rec'><b>Protocol warnings:</b><br>none</div>
+
+<footer>Generated by SynthAudit — audit synthetic datasets before you benchmark on them.</footer>
+</div></body></html>

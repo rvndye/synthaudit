@@ -1,0 +1,22 @@
+name: Feature request
+description: A new detector, export, or capability
+labels: ["type: enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What can't you audit today
+      description: The artifact class, data shape, or workflow the current release misses.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed behavior
+    validations:
+      required: true
+  - type: textarea
+    id: guards
+    attributes:
+      label: False-positive story
+      description: Every detector needs guards. How would this one avoid firing on imbalance, missingness, or legitimate structure?

@@ -1,0 +1,8 @@
+config,planted_recall,n_detected,neg_ctrl,role_accuracy,L,BTI,runtime_s,grid_threshold,grid_balance,ai4i_rule,ai4i_components_critical,synthea_product,synthea_L_zero
+full,1.0,11,1.0,0.88,0.0,0.2189,45.49,True,True,True,True,True,True
+no_identity,0.3636,4,0.6667,0.32,0.0078,0.1648,60.14,False,False,False,False,False,False
+no_determinism,0.9091,10,1.0,0.88,0.0,0.2189,4.12,True,True,True,True,True,True
+no_causal,1.0,11,1.0,0.88,0.0,0.2189,44.78,True,True,True,True,True,True
+no_leakage,0.9091,10,1.0,0.96,0.0,0.2222,45.3,True,True,True,False,True,True
+no_fd,1.0,11,1.0,0.88,0.0,0.2189,46.24,True,True,True,True,True,True
+single_pass,0.9091,10,0.6667,0.84,0.0,0.1872,45.88,True,True,True,True,True,True

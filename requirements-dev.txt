@@ -1,0 +1,12 @@
+-r requirements.txt
+causal-learn>=0.1.3
+nbformat>=5.9
+pytest>=7.0
+pytest-cov>=4.0
+ruff>=0.4
+build>=1.0
+twine>=5.0
+mkdocs-material>=9.5
+nbclient>=0.9
+nbconvert>=7.0
+ipykernel>=6.25

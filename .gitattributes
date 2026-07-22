@@ -1,0 +1,6 @@
+* text=auto eol=lf
+*.png binary
+*.pdf binary
+*.gz binary
+*.ipynb linguist-documentation
+reports/*.html linguist-generated

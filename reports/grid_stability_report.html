@@ -1,0 +1,71 @@
+<!DOCTYPE html><html><head><meta charset='utf-8'>
+<title>SynthAudit — grid_stability</title><style>
+body{font-family:'Segoe UI',system-ui,sans-serif;margin:0;background:#f5f6fa;color:#2c3e50}
+.wrap{max-width:1080px;margin:0 auto;padding:24px}
+header{background:#1a252f;color:#ecf0f1;padding:28px 24px;border-radius:0 0 12px 12px}
+h1{margin:0;font-size:26px} h2{margin-top:34px;border-bottom:2px solid #dfe4ea;padding-bottom:6px}
+.sub{color:#95a5a6;margin-top:6px}
+.cards{display:flex;gap:16px;flex-wrap:wrap;margin-top:20px}
+.card{background:#fff;border-radius:10px;padding:16px 20px;box-shadow:0 1px 4px rgba(0,0,0,.08);min-width:130px}
+.card .v{font-size:24px;font-weight:700} .card .k{color:#7f8c8d;font-size:12px;text-transform:uppercase}
+.gradecard{background:#c0392b;color:#fff}
+table{border-collapse:collapse;width:100%;background:#fff;font-size:13px;margin-top:8px}
+th{background:#34495e;color:#fff;text-align:left;padding:7px 9px}
+td{padding:6px 9px;border-bottom:1px solid #ecf0f1;max-width:520px;overflow-wrap:anywhere}
+tr:hover td{background:#f8f9fb}
+.finding{background:#fff;border-left:5px solid;#ccc;margin:8px 0;padding:10px 14px;border-radius:6px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.sev{color:#fff;font-size:10px;padding:2px 7px;border-radius:9px;margin-right:6px}
+.pill{display:flex;align-items:center;gap:10px;margin:7px 0}
+.plabel{width:210px;font-size:13px} .pval{font-weight:700;width:44px}
+.bar{flex:1;height:12px;background:#dfe4ea;border-radius:6px;overflow:hidden}
+.fill{height:100%;background:linear-gradient(90deg,#e74c3c,#f1c40f 55%,#27ae60);border-radius:6px}
+.muted{color:#95a5a6} pre{background:#fff;padding:12px;border-radius:8px;overflow-x:auto;font-size:12px}
+.rec{background:#fff;border-radius:8px;padding:12px 16px;margin:8px 0;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+footer{color:#95a5a6;font-size:12px;margin:40px 0 12px;text-align:center}
+</style></head><body>
+<header><div class='wrap'>
+<h1>SynthAudit report — grid_stability</h1>
+<div class='sub'>10,000 rows × 14 columns
+ · target: <b>stabf</b> · runtime 11.64s
+ · synthaudit v0.1.0</div>
+</div></header><div class='wrap'>
+
+<div class='cards'>
+<div class='card gradecard'><div class='v'>F</div><div class='k' style='color:#ffffffcc'>BTI grade</div></div>
+<div class='card'><div class='v'>0.2556</div><div class='k'>BTI score</div></div>
+<div class='card'><div class='v'>2</div><div class='k'>exact identities</div></div>
+<div class='card'><div class='v'>2</div><div class='k'>(near-)det. columns</div></div>
+<div class='card'><div class='v'>3</div><div class='k'>critical findings</div></div>
+</div>
+
+<h2>Benchmark Trustworthiness Index</h2><div class='pill'><span class='plabel'>Label integrity (L)</span><div class='bar'><div class='fill' style='width:0%'></div></div><span class='pval'>0.00</span></div><div class='pill'><span class='plabel'>Feature integrity (F)</span><div class='bar'><div class='fill' style='width:85%'></div></div><span class='pval'>0.85</span></div><div class='pill'><span class='plabel'>Difficulty headroom (H)</span><div class='bar'><div class='fill' style='width:100%'></div></div><span class='pval'>1.00</span></div><div class='pill'><span class='plabel'>Sampling realism (R)</span><div class='bar'><div class='fill' style='width:72%'></div></div><span class='pval'>0.72</span></div><div class='pill'><span class='plabel'>Information density (I)</span><div class='bar'><div class='fill' style='width:100%'></div></div><span class='pval'>1.00</span></div><div class='pill'><span class='plabel'>Transparency (T)</span><div class='bar'><div class='fill' style='width:50%'></div></div><span class='pval'>0.50</span></div>
+<p class='muted'>BTI is a triage score: report the pillar vector, not just the scalar. Grade A/B: usable with the recommended feature view. C: quarantine flagged columns and re-benchmark. D/F: dataset measures generator recovery, not learning — unsuitable as an ML benchmark without redesign.</p>
+
+<h2>Leakage &amp; artifact findings</h2><div class='finding' style='border-left-color:#c0392b'><span class='sev' style='background:#c0392b'>CRITICAL</span> <b>derived_target</b><br>Target &#x27;stabf&#x27; is (near-)recoverable by threshold_derivation: stabf == &#x27;unstable&#x27;  iff  stab &gt; -7.88345e-07 (fit=1.000000). Benchmark scores measure equation recovery, not learning.</div><div class='finding' style='border-left-color:#c0392b'><span class='sev' style='background:#c0392b'>CRITICAL</span> <b>label_components</b><br>Columns [&#x27;stab&#x27;] functionally participate in the target&#x27;s generating rule — using them as features is target leakage by construction.</div><div class='finding' style='border-left-color:#c0392b'><span class='sev' style='background:#c0392b'>CRITICAL</span> <b>single_feature_dominance</b><br>Feature &#x27;stab&#x27; alone achieves 1.0000 (AUC/acc) on &#x27;stabf&#x27; — shortcut or leak candidate.</div>
+
+<h2>Recovered identities &amp; rules (Module 2)</h2>
+<table><thead><tr><th>type</th><th>equation</th><th>r2/fidelity</th><th>disposition</th><th>exact</th></tr></thead><tbody><tr><td>linear</td><td>p4 = -1*p1 -1*p2 -1*p3</td><td>1.0</td><td>structural_constraint</td><td>True</td></tr><tr><td>threshold_derivation</td><td>stabf == &#x27;unstable&#x27;  iff  stab &gt; -7.88345e-07</td><td>1.0</td><td>target_leakage</td><td>True</td></tr></tbody></table>
+<h3>Functional dependencies</h3>
+<p class='muted'>none</p>
+
+<h2>Determinism sweep (Module 3, out-of-sample)</h2>
+<table><thead><tr><th>column</th><th>metric</th><th>score</th><th>class</th><th>best_single_feature</th></tr></thead><tbody><tr><td>stabf</td><td>accuracy</td><td>0.997273</td><td>near_deterministic</td><td>stab</td></tr><tr><td>p4</td><td>r2</td><td>0.988775</td><td>near_deterministic</td><td>p1</td></tr><tr><td>stab</td><td>r2</td><td>0.950608</td><td>highly_predictable</td><td>stabf</td></tr><tr><td>p1</td><td>r2</td><td>0.648226</td><td>stochastic</td><td>p2</td></tr><tr><td>g3</td><td>r2</td><td>0.510294</td><td>stochastic</td><td>stab</td></tr><tr><td>g2</td><td>r2</td><td>0.505512</td><td>stochastic</td><td>stab</td></tr><tr><td>g1</td><td>r2</td><td>0.494936</td><td>stochastic</td><td>stab</td></tr><tr><td>g4</td><td>r2</td><td>0.487768</td><td>stochastic</td><td>stab</td></tr><tr><td>p3</td><td>r2</td><td>0.477157</td><td>stochastic</td><td>p1</td></tr><tr><td>p2</td><td>r2</td><td>0.473848</td><td>stochastic</td><td>p1</td></tr><tr><td>tau2</td><td>r2</td><td>0.348716</td><td>stochastic</td><td>stab</td></tr><tr><td>tau1</td><td>r2</td><td>0.348185</td><td>stochastic</td><td>stab</td></tr><tr><td>tau4</td><td>r2</td><td>0.33777</td><td>stochastic</td><td>stab</td></tr><tr><td>tau3</td><td>r2</td><td>0.335231</td><td>stochastic</td><td>stab</td></tr></tbody></table>
+
+<h2>Causal structure scan (Module 4, advisory)</h2>
+<p>Excluded deterministic columns: p4</p>
+<p>Varsortability (vs recovered graph): <b>0.2</b> ·
+R²-sortability: <b>1.0</b></p>
+<table><thead><tr><th>from</th><th>to</th><th>kind</th></tr></thead><tbody><tr><td>tau1</td><td>g2</td><td>undirected</td></tr><tr><td>tau1</td><td>stab</td><td>directed</td></tr><tr><td>tau2</td><td>g4</td><td>undirected</td></tr><tr><td>tau2</td><td>stab</td><td>directed</td></tr><tr><td>tau3</td><td>stab</td><td>directed</td></tr><tr><td>tau4</td><td>stab</td><td>directed</td></tr><tr><td>p2</td><td>p1</td><td>directed</td></tr><tr><td>p3</td><td>p1</td><td>directed</td></tr><tr><td>g1</td><td>stab</td><td>directed</td></tr><tr><td>g2</td><td>stab</td><td>directed</td></tr><tr><td>g3</td><td>stab</td><td>directed</td></tr><tr><td>g4</td><td>stab</td><td>directed</td></tr></tbody></table>
+<p class='muted'>Estimated against the PC-recovered graph. Values near 1.0 mean marginal variance (or R²) increases along recovered edges — the signature of unstandardized additive-noise simulation (Reisach et al. 2021): structure learners can &#x27;succeed&#x27; by exploiting scale.</p>
+
+<h2>Variable taxonomy</h2>
+<table><thead><tr><th>column</th><th>role</th><th>why</th></tr></thead><tbody><tr><td>tau1</td><td>input</td><td></td></tr><tr><td>tau2</td><td>input</td><td></td></tr><tr><td>tau3</td><td>input</td><td></td></tr><tr><td>tau4</td><td>input</td><td></td></tr><tr><td>p1</td><td>input</td><td></td></tr><tr><td>p2</td><td>input</td><td></td></tr><tr><td>p3</td><td>input</td><td></td></tr><tr><td>p4</td><td>derived_deterministic</td><td>p4 = -1*p1 -1*p2 -1*p3</td></tr><tr><td>g1</td><td>input</td><td></td></tr><tr><td>g2</td><td>input</td><td></td></tr><tr><td>g3</td><td>input</td><td></td></tr><tr><td>g4</td><td>input</td><td></td></tr><tr><td>stab</td><td>label_component</td><td>participates in generating rule of &#x27;stabf&#x27;</td></tr><tr><td>stabf</td><td>target</td><td></td></tr></tbody></table>
+
+<h2>Recommendations (Module 7)</h2>
+<div class='rec'><b>Drop:</b> p4, stab</div>
+<div class='rec'><b>Quarantine:</b> none</div>
+<div class='rec'><b>Suggested tasks:</b><br>Predict &#x27;p1&#x27; (honest out-of-sample r2≈0.65).<br>Predict &#x27;g3&#x27; (honest out-of-sample r2≈0.51).<br>Predict &#x27;g2&#x27; (honest out-of-sample r2≈0.51).</div>
+<div class='rec'><b>Protocol warnings:</b><br>Target &#x27;stabf&#x27; is (near-)derived from shipped columns. Any reported model score on it is a claim about equation recovery, not about learning.</div>
+
+<footer>Generated by SynthAudit — audit synthetic datasets before you benchmark on them.</footer>
+</div></body></html>

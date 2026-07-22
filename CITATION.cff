@@ -1,0 +1,29 @@
+cff-version: 1.2.0
+message: "If you use SynthAudit, please cite it using this metadata."
+type: software
+title: "SynthAudit: Reference-Free Auditing of Synthetic Datasets for Generator Artifacts Before Machine Learning"
+authors:
+  - family-names: Erwin
+    given-names: Randy
+    email: erwinrandy3@gmail.com
+version: 0.1.0
+date-released: 2026-07-22
+license: Apache-2.0
+repository-code: "https://github.com/rvndye/synthaudit"
+url: "https://rvndye.github.io/synthaudit/"
+keywords:
+  - synthetic data
+  - data leakage
+  - benchmark validity
+  - dataset auditing
+  - causal discovery
+  - data-centric AI
+abstract: >-
+  SynthAudit audits released synthetic and simulated tabular datasets for
+  generator artifacts before machine learning: exact and near-exact
+  identities, rule- and threshold-derived labels, functional dependencies,
+  schedule leakage, and train/test contamination. It classifies every column,
+  separates benchmark leakage from legitimate structural constraints, and
+  aggregates the evidence into a decomposable Benchmark Trustworthiness
+  Index. A methodology paper is under submission; this file will be updated
+  with the preferred citation on acceptance.

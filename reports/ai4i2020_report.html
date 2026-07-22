@@ -1,0 +1,71 @@
+<!DOCTYPE html><html><head><meta charset='utf-8'>
+<title>SynthAudit — ai4i2020</title><style>
+body{font-family:'Segoe UI',system-ui,sans-serif;margin:0;background:#f5f6fa;color:#2c3e50}
+.wrap{max-width:1080px;margin:0 auto;padding:24px}
+header{background:#1a252f;color:#ecf0f1;padding:28px 24px;border-radius:0 0 12px 12px}
+h1{margin:0;font-size:26px} h2{margin-top:34px;border-bottom:2px solid #dfe4ea;padding-bottom:6px}
+.sub{color:#95a5a6;margin-top:6px}
+.cards{display:flex;gap:16px;flex-wrap:wrap;margin-top:20px}
+.card{background:#fff;border-radius:10px;padding:16px 20px;box-shadow:0 1px 4px rgba(0,0,0,.08);min-width:130px}
+.card .v{font-size:24px;font-weight:700} .card .k{color:#7f8c8d;font-size:12px;text-transform:uppercase}
+.gradecard{background:#c0392b;color:#fff}
+table{border-collapse:collapse;width:100%;background:#fff;font-size:13px;margin-top:8px}
+th{background:#34495e;color:#fff;text-align:left;padding:7px 9px}
+td{padding:6px 9px;border-bottom:1px solid #ecf0f1;max-width:520px;overflow-wrap:anywhere}
+tr:hover td{background:#f8f9fb}
+.finding{background:#fff;border-left:5px solid;#ccc;margin:8px 0;padding:10px 14px;border-radius:6px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.sev{color:#fff;font-size:10px;padding:2px 7px;border-radius:9px;margin-right:6px}
+.pill{display:flex;align-items:center;gap:10px;margin:7px 0}
+.plabel{width:210px;font-size:13px} .pval{font-weight:700;width:44px}
+.bar{flex:1;height:12px;background:#dfe4ea;border-radius:6px;overflow:hidden}
+.fill{height:100%;background:linear-gradient(90deg,#e74c3c,#f1c40f 55%,#27ae60);border-radius:6px}
+.muted{color:#95a5a6} pre{background:#fff;padding:12px;border-radius:8px;overflow-x:auto;font-size:12px}
+.rec{background:#fff;border-radius:8px;padding:12px 16px;margin:8px 0;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+footer{color:#95a5a6;font-size:12px;margin:40px 0 12px;text-align:center}
+</style></head><body>
+<header><div class='wrap'>
+<h1>SynthAudit report — ai4i2020</h1>
+<div class='sub'>10,000 rows × 14 columns
+ · target: <b>Machine failure</b> · runtime 10.28s
+ · synthaudit v0.1.0</div>
+</div></header><div class='wrap'>
+
+<div class='cards'>
+<div class='card gradecard'><div class='v'>F</div><div class='k' style='color:#ffffffcc'>BTI grade</div></div>
+<div class='card'><div class='v'>0.2516</div><div class='k'>BTI score</div></div>
+<div class='card'><div class='v'>0</div><div class='k'>exact identities</div></div>
+<div class='card'><div class='v'>2</div><div class='k'>(near-)det. columns</div></div>
+<div class='card'><div class='v'>2</div><div class='k'>critical findings</div></div>
+</div>
+
+<h2>Benchmark Trustworthiness Index</h2><div class='pill'><span class='plabel'>Label integrity (L)</span><div class='bar'><div class='fill' style='width:1%'></div></div><span class='pval'>0.01</span></div><div class='pill'><span class='plabel'>Feature integrity (F)</span><div class='bar'><div class='fill' style='width:62%'></div></div><span class='pval'>0.62</span></div><div class='pill'><span class='plabel'>Difficulty headroom (H)</span><div class='bar'><div class='fill' style='width:100%'></div></div><span class='pval'>1.00</span></div><div class='pill'><span class='plabel'>Sampling realism (R)</span><div class='bar'><div class='fill' style='width:97%'></div></div><span class='pval'>0.97</span></div><div class='pill'><span class='plabel'>Information density (I)</span><div class='bar'><div class='fill' style='width:100%'></div></div><span class='pval'>1.00</span></div><div class='pill'><span class='plabel'>Transparency (T)</span><div class='bar'><div class='fill' style='width:50%'></div></div><span class='pval'>0.50</span></div>
+<p class='muted'>BTI is a triage score: report the pillar vector, not just the scalar. Grade A/B: usable with the recommended feature view. C: quarantine flagged columns and re-benchmark. D/F: dataset measures generator recovery, not learning — unsuitable as an ML benchmark without redesign.</p>
+
+<h2>Leakage &amp; artifact findings</h2><div class='finding' style='border-left-color:#c0392b'><span class='sev' style='background:#c0392b'>CRITICAL</span> <b>derived_target</b><br>Target &#x27;Machine failure&#x27; is (near-)recoverable by rule_derived_label: Machine failure = decision_rules(HDF, PWF, OSF, TWF, Rotational speed [rpm]) (fit=0.999100). Benchmark scores measure equation recovery, not learning.</div><div class='finding' style='border-left-color:#c0392b'><span class='sev' style='background:#c0392b'>CRITICAL</span> <b>label_components</b><br>Columns [&#x27;HDF&#x27;, &#x27;OSF&#x27;, &#x27;PWF&#x27;, &#x27;Rotational speed [rpm]&#x27;, &#x27;TWF&#x27;] functionally participate in the target&#x27;s generating rule — using them as features is target leakage by construction.</div>
+
+<h2>Recovered identities &amp; rules (Module 2)</h2>
+<table><thead><tr><th>type</th><th>equation</th><th>r2/fidelity</th><th>disposition</th><th>exact</th></tr></thead><tbody><tr><td>rule_derived_label</td><td>Machine failure = decision_rules(HDF, PWF, OSF, TWF, Rotational speed [rpm])</td><td>0.9991</td><td>target_leakage</td><td>False</td></tr><tr><td>rule_derived_label</td><td>HDF = decision_rules(Machine failure, Air temperature [K], Rotational speed [rpm], UDI, OSF, Process temperature [K])</td><td>0.9993</td><td>structural_constraint</td><td>False</td></tr><tr><td>rule_derived_label</td><td>PWF = decision_rules(Torque [Nm], Rotational speed [rpm], Machine failure, Tool wear [min], Air temperature [K])</td><td>0.9997</td><td>structural_constraint</td><td>False</td></tr><tr><td>rule_derived_label</td><td>OSF = decision_rules(Tool wear [min], Torque [Nm], Machine failure, HDF, Rotational speed [rpm], UDI)</td><td>0.9998</td><td>structural_constraint</td><td>False</td></tr></tbody></table>
+<h3>Functional dependencies</h3>
+<p class='muted'>none</p>
+
+<h2>Determinism sweep (Module 3, out-of-sample)</h2>
+<table><thead><tr><th>column</th><th>metric</th><th>score</th><th>class</th><th>best_single_feature</th></tr></thead><tbody><tr><td>Air temperature [K]</td><td>r2</td><td>0.997166</td><td>near_deterministic</td><td>UDI</td></tr><tr><td>Process temperature [K]</td><td>r2</td><td>0.993792</td><td>near_deterministic</td><td>UDI</td></tr><tr><td>PWF</td><td>accuracy</td><td>0.999394</td><td>highly_predictable</td><td>Torque [Nm]</td></tr><tr><td>Rotational speed [rpm]</td><td>r2</td><td>0.912142</td><td>highly_predictable</td><td>Torque [Nm]</td></tr><tr><td>HDF</td><td>accuracy</td><td>0.999091</td><td>highly_predictable</td><td>Machine failure</td></tr><tr><td>Torque [Nm]</td><td>r2</td><td>0.848614</td><td>stochastic</td><td>Rotational speed [rpm]</td></tr><tr><td>OSF</td><td>accuracy</td><td>0.998485</td><td>stochastic</td><td>Machine failure</td></tr><tr><td>Machine failure</td><td>accuracy</td><td>0.990909</td><td>stochastic</td><td>Torque [Nm]</td></tr><tr><td>UDI</td><td>r2</td><td>0.597149</td><td>stochastic</td><td>Air temperature [K]</td></tr><tr><td>Tool wear [min]</td><td>r2</td><td>0.264795</td><td>stochastic</td><td>Machine failure</td></tr><tr><td>TWF</td><td>accuracy</td><td>0.988182</td><td>stochastic</td><td>Machine failure</td></tr><tr><td>RNF</td><td>accuracy</td><td>0.997576</td><td>stochastic</td><td>UDI</td></tr><tr><td>Type</td><td>accuracy</td><td>0.561515</td><td>stochastic</td><td>Torque [Nm]</td></tr></tbody></table>
+
+<h2>Causal structure scan (Module 4, advisory)</h2>
+<p>Excluded deterministic columns: HDF, OSF, PWF</p>
+<p>Varsortability (vs recovered graph): <b>0.6</b> ·
+R²-sortability: <b>0.8</b></p>
+<table><thead><tr><th>from</th><th>to</th><th>kind</th></tr></thead><tbody><tr><td>UDI</td><td>Air temperature [K]</td><td>directed</td></tr><tr><td>UDI</td><td>Process temperature [K]</td><td>undirected</td></tr><tr><td>Process temperature [K]</td><td>Air temperature [K]</td><td>directed</td></tr><tr><td>Rotational speed [rpm]</td><td>Torque [Nm]</td><td>directed</td></tr><tr><td>Tool wear [min]</td><td>Machine failure</td><td>undirected</td></tr><tr><td>Tool wear [min]</td><td>TWF</td><td>undirected</td></tr><tr><td>Machine failure</td><td>Air temperature [K]</td><td>directed</td></tr><tr><td>Machine failure</td><td>Torque [Nm]</td><td>directed</td></tr><tr><td>Machine failure</td><td>TWF</td><td>undirected</td></tr></tbody></table>
+<p class='muted'>Estimated against the PC-recovered graph. Values near 1.0 mean marginal variance (or R²) increases along recovered edges — the signature of unstandardized additive-noise simulation (Reisach et al. 2021): structure learners can &#x27;succeed&#x27; by exploiting scale.</p>
+
+<h2>Variable taxonomy</h2>
+<table><thead><tr><th>column</th><th>role</th><th>why</th></tr></thead><tbody><tr><td>UDI</td><td>input</td><td></td></tr><tr><td>Product ID</td><td>identifier</td><td></td></tr><tr><td>Type</td><td>input</td><td></td></tr><tr><td>Air temperature [K]</td><td>near_deterministic</td><td>predictability sweep ≥ 0.98</td></tr><tr><td>Process temperature [K]</td><td>near_deterministic</td><td>predictability sweep ≥ 0.98</td></tr><tr><td>Rotational speed [rpm]</td><td>label_component</td><td>participates in generating rule of &#x27;Machine failure&#x27;</td></tr><tr><td>Torque [Nm]</td><td>input</td><td></td></tr><tr><td>Tool wear [min]</td><td>input</td><td></td></tr><tr><td>Machine failure</td><td>target</td><td></td></tr><tr><td>TWF</td><td>label_component</td><td>participates in generating rule of &#x27;Machine failure&#x27;</td></tr><tr><td>HDF</td><td>label_component</td><td>participates in generating rule of &#x27;Machine failure&#x27;</td></tr><tr><td>PWF</td><td>label_component</td><td>participates in generating rule of &#x27;Machine failure&#x27;</td></tr><tr><td>OSF</td><td>label_component</td><td>participates in generating rule of &#x27;Machine failure&#x27;</td></tr><tr><td>RNF</td><td>input</td><td></td></tr></tbody></table>
+
+<h2>Recommendations (Module 7)</h2>
+<div class='rec'><b>Drop:</b> HDF, OSF, PWF, Rotational speed [rpm], TWF</div>
+<div class='rec'><b>Quarantine:</b> Air temperature [K], Process temperature [K]</div>
+<div class='rec'><b>Suggested tasks:</b><br>Predict &#x27;Torque [Nm]&#x27; (honest out-of-sample r2≈0.85).<br>Predict &#x27;UDI&#x27; (honest out-of-sample r2≈0.60).</div>
+<div class='rec'><b>Protocol warnings:</b><br>Target &#x27;Machine failure&#x27; is (near-)derived from shipped columns. Any reported model score on it is a claim about equation recovery, not about learning.</div>
+
+<footer>Generated by SynthAudit — audit synthetic datasets before you benchmark on them.</footer>
+</div></body></html>

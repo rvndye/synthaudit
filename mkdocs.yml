@@ -1,0 +1,56 @@
+site_name: SynthAudit
+site_description: Reference-free auditing of synthetic datasets for generator artifacts before machine learning
+site_url: https://rvndye.github.io/synthaudit/
+repo_url: https://github.com/rvndye/synthaudit
+repo_name: rvndye/synthaudit
+edit_uri: edit/main/docs/
+
+theme:
+  name: material
+  logo: assets/logo.svg
+  favicon: assets/logo.svg
+  palette:
+    - scheme: default
+      primary: blue
+      accent: deep orange
+      toggle:
+        icon: material/weather-night
+        name: Dark mode
+    - scheme: slate
+      primary: blue
+      accent: deep orange
+      toggle:
+        icon: material/weather-sunny
+        name: Light mode
+  features:
+    - navigation.sections
+    - navigation.top
+    - content.code.copy
+    - content.action.edit
+
+markdown_extensions:
+  - admonition
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.highlight
+  - pymdownx.superfences
+  - pymdownx.arithmatex:
+      generic: true
+
+extra_javascript:
+  - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
+
+nav:
+  - Home: index.md
+  - Installation: installation.md
+  - Quick start: quickstart.md
+  - Tutorial: tutorial.md
+  - Concepts:
+      - Theory: theory.md
+      - Architecture: architecture.md
+      - Benchmark Trustworthiness Index: bti.md
+      - Artifact taxonomy: artifacts.md
+  - API reference: api.md
+  - Developer guide: developer-guide.md
+  - FAQ: faq.md
