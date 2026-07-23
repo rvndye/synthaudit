@@ -58,6 +58,7 @@ synthaudit = "synthaudit.cli:main"
 
 [project.urls]
 Homepage = "https://github.com/rvndye/synthaudit"
+PyPI = "https://pypi.org/project/synthaudit/"
 Documentation = "https://rvndye.github.io/synthaudit/"
 Repository = "https://github.com/rvndye/synthaudit"
 Issues = "https://github.com/rvndye/synthaudit/issues"

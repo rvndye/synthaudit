@@ -1,14 +1,14 @@
 <p align="center">
-  <img src="docs/assets/logo.svg" alt="SynthAudit logo" width="520">
+  <img src="https://raw.githubusercontent.com/rvndye/synthaudit/main/docs/assets/logo.svg" alt="SynthAudit logo" width="520">
 </p>
 
 <p align="center">
+  <a href="https://pypi.org/project/synthaudit/"><img alt="PyPI" src="https://img.shields.io/pypi/v/synthaudit.svg"></a>
+  <a href="https://pypi.org/project/synthaudit/"><img alt="Python versions" src="https://img.shields.io/pypi/pyversions/synthaudit.svg"></a>
   <a href="https://github.com/rvndye/synthaudit/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/rvndye/synthaudit/actions/workflows/ci.yml/badge.svg"></a>
   <a href="https://github.com/rvndye/synthaudit/actions/workflows/docs.yml"><img alt="Docs" src="https://github.com/rvndye/synthaudit/actions/workflows/docs.yml/badge.svg"></a>
-  <a href="LICENSE"><img alt="License: Apache-2.0" src="https://img.shields.io/badge/license-Apache--2.0-blue.svg"></a>
-  <img alt="Python 3.11 | 3.12" src="https://img.shields.io/badge/python-3.11%20%7C%203.12-blue">
+  <a href="https://github.com/rvndye/synthaudit/blob/main/LICENSE"><img alt="License: Apache-2.0" src="https://img.shields.io/badge/license-Apache--2.0-blue.svg"></a>
   <a href="https://github.com/astral-sh/ruff"><img alt="Linted with Ruff" src="https://img.shields.io/badge/lint-ruff-261230.svg"></a>
-  <a href="https://github.com/rvndye/synthaudit/releases"><img alt="Release" src="https://img.shields.io/github/v/release/rvndye/synthaudit?include_prereleases&sort=semver"></a>
   <!-- TODO after Zenodo archiving: <a href="https://doi.org/10.5281/zenodo.XXXXXXX"><img alt="DOI" src="https://zenodo.org/badge/DOI/10.5281/zenodo.XXXXXXX.svg"></a> -->
 </p>
 
@@ -24,7 +24,7 @@ Trustworthiness Index (BTI)**.
 
 Why this matters: many widely used synthetic benchmarks quietly ship their own
 answer key, and models "solve" the generator rather than the task. Findings
-from the audits in [`reports/`](reports), each produced by one command:
+from the audits in [`reports/`](https://github.com/rvndye/synthaudit/tree/main/reports), each produced by one command:
 
 | Dataset | What SynthAudit found (from the file alone) | Grade |
 |---|---|:---:|
@@ -42,15 +42,19 @@ and twelve cross-domain case studies are described in the accompanying paper
 
 ## Installation
 
+SynthAudit is on [PyPI](https://pypi.org/project/synthaudit/) and requires
+Python 3.11+:
+
 ```bash
-pip install synthaudit            # core  (PyPI release pending; see below)
+pip install synthaudit            # core
 pip install "synthaudit[causal]"  # + causal-learn for the causal structure scan
 ```
 
-Until the PyPI release lands, install from GitHub:
+Developer installation (for contributing or running the research assets):
 
 ```bash
-pip install "synthaudit[causal] @ git+https://github.com/rvndye/synthaudit.git"
+git clone https://github.com/rvndye/synthaudit.git
+cd synthaudit && pip install -e ".[dev,causal,notebook]"
 ```
 
 ## Quick start
@@ -59,6 +63,7 @@ pip install "synthaudit[causal] @ git+https://github.com/rvndye/synthaudit.git"
 import pandas as pd
 from synthaudit import Audit
 
+# any synthetic CSV works; this demo file ships in the repository's datasets/
 df = pd.read_csv("datasets/grid_stability.csv")
 
 audit = Audit(df, target="stabf", name="grid_stability",
@@ -83,7 +88,7 @@ synthaudit selftest                                        # planted-artifact se
 ```
 
 <p align="center">
-  <img src="docs/assets/report-screenshot.png" alt="SynthAudit HTML report for the Grid Stability dataset" width="760">
+  <img src="https://raw.githubusercontent.com/rvndye/synthaudit/main/docs/assets/report-screenshot.png" alt="SynthAudit HTML report for the Grid Stability dataset" width="760">
 </p>
 
 ## What it detects
@@ -144,10 +149,10 @@ bash scripts/download_datasets.sh   # fetches the remaining public cohort datase
 python scripts/audit_cohort.py      # regenerates reports/ and benchmarks/ tables
 ```
 
-Bundled small datasets (with attribution in [`datasets/README.md`](datasets/README.md)):
+Bundled small datasets (with attribution in [`datasets/README.md`](https://github.com/rvndye/synthaudit/blob/main/datasets/README.md)):
 AI4I 2020 and Electrical Grid Stability (UCI, CC BY 4.0) and one Synthea table
 (Apache-2.0). Audit outputs for all twelve cohort datasets are in
-[`reports/`](reports); ablation and stability tables in [`benchmarks/`](benchmarks).
+[`reports/`](https://github.com/rvndye/synthaudit/tree/main/reports); ablation and stability tables in [`benchmarks/`](https://github.com/rvndye/synthaudit/tree/main/benchmarks).
 
 ## Citation
 
@@ -164,13 +169,14 @@ If you use SynthAudit in your research, please cite the software release:
 }
 ```
 
+The package is distributed via [PyPI](https://pypi.org/project/synthaudit/).
 The methodology paper is under submission (JMLR); the entry above will be
 updated on acceptance, and `CITATION.cff` carries the canonical metadata.
 
 ## Contributing
 
 Contributions are welcome: new artifact detectors, dataset audits, docs, and
-bug reports alike. Start with [CONTRIBUTING.md](CONTRIBUTING.md) and the
+bug reports alike. Start with [CONTRIBUTING.md](https://github.com/rvndye/synthaudit/blob/main/CONTRIBUTING.md) and the
 [developer guide](https://rvndye.github.io/synthaudit/developer-guide/).
 Found a generator artifact in a public benchmark using SynthAudit? Open an
 issue with the *Audit finding* template; confirmed findings are collected in
@@ -178,14 +184,27 @@ the documentation.
 
 ## Roadmap
 
-Planned directions, roughly ordered: temporal auditing (lagged identities,
-dynamics mining, split-protocol certification), relational multi-table audits
-(cross-table dependency graphs), an opt-in symbolic-regression backend for
-out-of-class equations, latent-regime and masked-category scans, a multi-probe
-headroom panel, and auditors for LLM-generated benchmarks. See the
-[open issues](https://github.com/rvndye/synthaudit/issues) for current status.
+- **v0.1.x** (maintenance): bug fixes, Windows runners in CI, configurable
+  thresholds surfaced through the `Audit` constructor, HTML report polish.
+- **v0.2.0**: additional artifact detectors (lagged/temporal identities,
+  latent-regime and masked-category scans), a multi-probe headroom panel
+  (linear, nearest-neighbor, boosted), Croissant metadata and Markdown
+  summary as additional report formats, and expanded dataset support in the
+  cohort scripts.
+- **v0.3.0**: plugin architecture for third-party detectors (entry-point
+  registration with mandatory planted-artifact and negative-control tests),
+  relational multi-table auditing, additional causal discovery backends
+  (GES, FCI, determinism-aware search), and an opt-in symbolic-regression
+  miner for out-of-class equations.
+- **v1.0.0**: API stabilization: a documented, versioned results-schema
+  contract, semantic-versioning guarantees for the `Audit` interface and
+  BTI semantics, aligned with the methodology paper's publication.
+
+Progress is tracked in the
+[open issues](https://github.com/rvndye/synthaudit/issues); proposals
+welcome via the feature-request template.
 
 ## License
 
-[Apache License 2.0](LICENSE). Bundled datasets keep their original licenses,
-documented in [`datasets/README.md`](datasets/README.md).
+[Apache License 2.0](https://github.com/rvndye/synthaudit/blob/main/LICENSE). Bundled datasets keep their original licenses,
+documented in [`datasets/README.md`](https://github.com/rvndye/synthaudit/blob/main/datasets/README.md).

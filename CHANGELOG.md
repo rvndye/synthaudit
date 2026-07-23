@@ -4,18 +4,12 @@ All notable changes to this project are documented in this file. The format
 follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and the
 project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
-
-### Changed
-- SynthAudit now requires Python 3.11+. Python 3.10 support is removed:
-  the test suite uses the standard-library `tomllib` (new in 3.11), CI no
-  longer tests 3.10, and packaging metadata, the Ruff target, and the
-  documentation were updated to match. No `tomli` fallback is introduced.
-
-## [0.1.0] - 2026-07-22
+## [0.1.0] - 2026-07-23
 
 First public release, accompanying the SynthAudit methodology paper
-(under submission).
+(under submission). Published on [PyPI](https://pypi.org/project/synthaudit/):
+`pip install synthaudit`. Requires Python 3.11+ (the test suite uses the
+standard-library `tomllib`, new in 3.11; no `tomli` fallback is provided).
 
 ### Added
 - Seven-module audit pipeline: profiling, identity mining (minimal Gram-based

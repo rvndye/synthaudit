@@ -29,10 +29,17 @@ decomposable Benchmark Trustworthiness Index.
 
 ### Install
 
+Requires Python 3.11+. From [PyPI](https://pypi.org/project/synthaudit/):
+
 ```bash
-pip install "synthaudit[causal] @ git+https://github.com/rvndye/synthaudit.git@v0.1.0"
+pip install synthaudit
+pip install "synthaudit[causal]"   # + causal-learn for the causal scan
 ```
 
-PyPI publication is planned; `dist/` artifacts are attached to this release.
+### Links
 
-Full changelog: https://github.com/rvndye/synthaudit/blob/main/CHANGELOG.md
+- Documentation: https://rvndye.github.io/synthaudit/
+- PyPI: https://pypi.org/project/synthaudit/
+- Changelog: https://github.com/rvndye/synthaudit/blob/main/CHANGELOG.md
+- Methodology paper: under submission at JMLR; the citation in
+  `CITATION.cff` will be updated on acceptance.

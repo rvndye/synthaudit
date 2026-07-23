@@ -2,7 +2,9 @@
 
 SynthAudit requires Python 3.11 or newer and is tested on 3.11 and 3.12 across Linux, macOS, and Windows.
 
-## From PyPI
+## From PyPI (recommended)
+
+SynthAudit is published on [PyPI](https://pypi.org/project/synthaudit/):
 
 ```bash
 pip install synthaudit
@@ -14,11 +16,7 @@ The causal structure scan needs one optional dependency:
 pip install "synthaudit[causal]"
 ```
 
-!!! note
-    Until the first PyPI release is published, install from GitHub:
-    `pip install "synthaudit[causal] @ git+https://github.com/rvndye/synthaudit.git"`
-
-## From source
+## Developer installation (from source)
 
 ```bash
 git clone https://github.com/rvndye/synthaudit.git

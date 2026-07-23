@@ -14,6 +14,10 @@ real source data, no generator access), recovers the artifacts constructively
 separates benchmark leakage from legitimate physical structure, and scores
 the release with a decomposable Benchmark Trustworthiness Index.
 
+```bash
+pip install synthaudit
+```
+
 ```python
 from synthaudit import Audit
 
