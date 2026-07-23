@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/rvndye/synthaudit/main/docs/assets/logo.svg" alt="SynthAudit logo" width="520">
+  <img src="https://raw.githubusercontent.com/rvndye/synthaudit/main/docs/assets/logo.png" alt="SynthAudit logo" width="520">
 </p>
 
 <p align="center">
